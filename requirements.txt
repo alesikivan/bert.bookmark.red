@@ -1,0 +1,8 @@
+Django==4.0.6
+django-cors-headers==3.13.0
+django-tastypie==0.14.4
+djangorestframework==3.13.1
+
+top2vec==1.0.27
+torch
+sentence_transformers

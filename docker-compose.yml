@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/django-bert
+    ports:
+      - "80:80"
+    image: app:django-bert
+    container_name: django-container
+    command: python manage.py runserver 0.0.0.0:80
