@@ -4,7 +4,10 @@ from core.env import SERVER_FILES_ROOT
 
 # BERT Model init
 bert_model_file = '/src/data/top2vec_vis_ngram_model'
+
 bert_model_file = SERVER_FILES_ROOT + bert_model_file
+# or
+# bert_model_file = Path('src/data/top2vec_vis_ngram_model')
 
 BERT_MODEL = Top2Vec.load(bert_model_file)
 
