@@ -17,3 +17,9 @@ def search(request):
     ids = MainHandler.search(request.query_params)
 
     return HttpResponse(json.dumps(ids), headers=HEADERS)
+
+@api_view(['GET'])
+def find_clusters(request):
+    data = MainHandler.find_clusters(request.query_params)
+
+    return HttpResponse(json.dumps(data), headers=HEADERS)
