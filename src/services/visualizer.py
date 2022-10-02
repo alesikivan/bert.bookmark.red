@@ -4,7 +4,7 @@ from pathlib import Path
 from core.env import SERVER_FILES_ROOT, DEV_MODE
 from django.core.exceptions import ValidationError
 
-hier_table_file = 'src/data/hier_table.csv'
+hier_table_file = 'src/data/versions/2/hier_table.csv'
 hier_table_file = Path(hier_table_file) if DEV_MODE else SERVER_FILES_ROOT + hier_table_file
 
 class Visualizer:
@@ -16,7 +16,7 @@ class Visualizer:
 
         rect = [eval(n)for n in rect] if len(rect) == 4 else []
 
-        cluster_hier = pd.read_csv(hier_table_file, index_col = 0)
+        cluster_hier = pd.read_csv(hier_table_file)
 
         if len(rect) == 4:
             [minX, minY, maxX, maxY] = rect
@@ -32,7 +32,7 @@ class Visualizer:
 
         best_crit = 0
         best_h = 0
-        criteria = [5, 0.33]
+        criteria = [10, 0.33]
 
         if len(hier_items):
             for h in range(hier_items.shape[1] - 3)[::-1]: # [48, 47, 46, 45, 44, 43, 42, ..., 0 ]
@@ -48,10 +48,14 @@ class Visualizer:
                         best_h = h
 
         clusters = hier_items[['doc_id', 'X', 'Y', str(best_h)]]
+
+        coordinates = hier_items.doc_id.unique().tolist()
+
         clusters = clusters.rename(columns = {str(best_h) : 'cluster'})
 
         if len(clusters) == 0: return {
             'clusters': [],
+            'coordinates': coordinates,
             'minX': clusters.X.min() - 0.1,
             'maxX': clusters.X.max() + 0.1,
             'minY': clusters.Y.min() - 0.1,
@@ -66,6 +70,7 @@ class Visualizer:
 
         return {
             'clusters': clusterNums,
+            'coordinates': coordinates,
             'minX': clusters.X.min() - 0.1,
             'maxX': clusters.X.max() + 0.1,
             'minY': clusters.Y.min() - 0.1,
