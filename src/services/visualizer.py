@@ -4,7 +4,7 @@ from pathlib import Path
 from core.env import SERVER_FILES_ROOT, DEV_MODE
 from django.core.exceptions import ValidationError
 
-hier_table_file = 'src/data/versions/2/hier_table.csv'
+hier_table_file = 'src/data/versions/2/hier.csv'
 hier_table_file = Path(hier_table_file) if DEV_MODE else SERVER_FILES_ROOT + hier_table_file
 
 class Visualizer:
@@ -32,11 +32,11 @@ class Visualizer:
 
         best_crit = 0
         best_h = 0
-        criteria = [8, 0.33]
+        criteria = [5, 0.33]
         CLUST_ID_MIN = 0
 
         if len(hier_items):
-            for h in range(hier_items.shape[1] - 3)[::-1]: # [48, 47, 46, 45, 44, 43, 42, ..., 0 ]
+            for h in range(hier_items.shape[1] - 3): # [48, 47, 46, 45, 44, 43, 42, ..., 0 ]
                 cluster_nums = len(hier_items[str(h)][hier_items[str(h)] >= CLUST_ID_MIN].unique())
                 cluster_vol = hier_items[str(h)].value_counts().iloc[0]
 
