@@ -4,7 +4,7 @@ from pathlib import Path
 from core.env import SERVER_FILES_ROOT, DEV_MODE
 from django.core.exceptions import ValidationError
 
-hier_table_file = 'src/data/versions/2/hier.csv'
+hier_table_file = 'src/data/versions/3/hier.csv'
 hier_table_file = Path(hier_table_file) if DEV_MODE else SERVER_FILES_ROOT + hier_table_file
 
 class Visualizer:
